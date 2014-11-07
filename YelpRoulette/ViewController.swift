@@ -8,11 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet var searchBar: UITextField!
+    
+    @IBAction func submitQuery(sender: AnyObject) {
+        println("testsubimte")
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        println(textField.text)
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        println("test")
+        searchBar.delegate = self
         
         if self.isYelpAppInstalled() {
             println("Yelp App found")
@@ -20,13 +33,13 @@ class ViewController: UIViewController {
         } else {
             println("Yelp App not found")
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
     private func isYelpAppInstalled() -> Bool {
         let scheme = "yelp:"
@@ -43,6 +56,5 @@ class ViewController: UIViewController {
     private func openYelpSentinel() {
         UIApplication.sharedApplication().openURL(NSURL(string: "yelp:///biz/the-sentinel-san-francisco")!)
     }
-
 }
 
